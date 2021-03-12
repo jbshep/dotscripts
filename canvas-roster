@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+from sys import argv
+import re
+
+def canvas_roster_to_text(fn):
+    tempfn = 'new___' + fn
+    with open(fn, 'r') as ifile:
+        with open(tempfn, 'w') as ofile:
+            for line in ifile:
+                pieces = line.split('\t')
+                ofile.write('%s,%s\n' % (pieces[0], pieces[1]))
+    Path(fn).unlink()
+    Path(tempfn).rename(fn)
+
+progname = Path(argv[0]).stem
+
+if len(argv) != 2:
+    print('Usage: %s <canvas-roster-text-file>' % progname)
+    exit(1)
+
+filename = argv[1]
+
+if not Path(filename).exists():
+    print('No such file ' + filename)
+    exit(2)
+
+canvas_roster_to_text(filename)
+

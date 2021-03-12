@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [[ ! -e ~/.semester ]]; then
+    echo "ERROR: Use set-semester first to specify the current semester."
+    exit 1
+fi
+
+semester=`cat ~/.semester`
+semdir=${HOME}/acad/c/$semester
+
+classes=`ls -1 $semdir`
+for cl in $classes; do
+    echo "--- $cl ----------"
+    rosterfile=$semdir/$cl/roster.txt
+    if [[ ! -e $rosterfile ]]; then
+        echo "NO ROSTER"
+    else
+        cat $rosterfile
+    fi
+done

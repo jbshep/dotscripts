@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [[ $# -ne 1 ]]; then
+    echo -e "Usage: $0 <SEM>\n\n  where <SEM> is F or S followed by YY\n"
+    exit 1
+fi
+
+semester=$1
+
+cat >~/.semester <<EOF
+${semester}
+EOF
+
+realdir=${HOME}/acad/c/${semester}
+linkdir=${HOME}/c
+
+if [[ ! -d $realdir ]]; then
+    mkdir -p $realdir
+fi
+rm -f $linkdir
+ln -s $realdir $linkdir
+
+
