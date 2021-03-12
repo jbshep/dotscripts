@@ -5,8 +5,10 @@ if [[ ! -e ~/.semester ]]; then
     exit 1
 fi
 
+progname=$(basename $0)
+
 if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 <username>"
+    echo "Usage: $progname <username>"
     exit 1
 fi
 

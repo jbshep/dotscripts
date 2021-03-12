@@ -1,7 +1,9 @@
 #!/bin/bash
 
+progname=$(basename $0)
+
 if [[ $# -ne 1 ]]; then
-    echo -e "Usage: $0 <SEM>\n\n  where <SEM> is F or S followed by YY\n"
+    echo -e "Usage: $progname <SEM>\n\n  where <SEM> is F or S followed by YY\n"
     exit 1
 fi
 
