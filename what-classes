@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [[ ! -e ~/.semester ]]; then
+    echo "ERROR: Use set-semester first to specify the current semester."
+    exit 1
+fi
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 <username>"
+    exit 1
+fi
+
+username=$1
+
+semester=`cat ~/.semester`
+semdir=${HOME}/acad/c/$semester
+
+classes=`ls -1 $semdir`
+for cl in $classes; do
+    rosterfile=$semdir/$cl/roster.txt
+    if [[ -e $rosterfile ]]; then
+        if [[ `grep ",$username\$" $rosterfile` != '' ]]; then
+            echo $cl
+        fi
+    fi
+done
