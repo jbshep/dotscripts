@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+
+# uncanvas -u <excludes>
+#
+# Example 1:
+#  dir is:
+#    user1_18303_2279029_User1MyClass-1.java
+#    user2_18548_2280590_User2MyClass.java
+#    user3_16276_2282660_User3MyClass-1.java
+#    user4_18653_2282606_User4MyClass.java
+#    Runner.java
+#    Timer.java
+#
+#  uncanvas Runner.java Timer.java
+#
+#    User1MyClass.java
+#    User2MyClass.java
+#    User3MyClass.java
+#    User4MyClass.java
+#    Runner.java
+#    Timer.java
+#
+# Example 2:
+#  dir is:
+#    user1_18303_2279029_User1.js
+#    user1_18303_2279030_User1.html
+#    user2_18548_2280590_User2.html
+#    test.css
+#
+#  uncanvas -u test.css
+#
+#    user1
+#     |
+#     `--User1.js
+#     `--User1.html
+#    user2
+#     |
+#     `--User2.html
+#    test.css
+#
+
+from pathlib import Path
+from sys import argv
+import os
+
+pwd = Path('.')
+
+userdirs_opt = False
+
+if '-u' in argv:
+    argv.remove('-u')
+    userdirs_opt = True
+
+excludes = []
+if len(argv) > 1:
+    excludes = argv[1:]
+
+for ent in pwd.iterdir():
+    if ent.name in excludes:
+        continue
+
+    und1 = ent.name.find('_')
+    und2 = ent.name.rfind('_')
+
+    if und1 >= und2 or (und1 == -1 and und2 == -1):
+        # Not a Canvas-munged file.
+        continue
+
+    user = ent.name[:und1]
+    newfn = ent.name[und2+1:]
+    if userdirs_opt:
+        userdir = pwd / user
+        if not userdir.exists():
+            userdir.mkdir()
+
+        os.system('mv {} {}/{}'.format(ent, user, newfn))
+    else:
+        os.system('mv {} {}'.format(ent, newfn))
+

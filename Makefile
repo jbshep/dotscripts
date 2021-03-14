@@ -1,6 +1,6 @@
 SHELL=/bin/bash
 
-SCRIPTFILES = canvas-roster flaskmake flaskrun nicezip set-semester show-roster what-classes
+SCRIPTFILES = canvas-roster flaskmake flaskrun nicezip set-semester show-roster what-classes uncanvas
 
 link: $(SCRIPTFILES)
 	for i in $?; do \
