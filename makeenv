@@ -1,0 +1,21 @@
+#!/bin/bash
+
+virtualenv -p python3 env
+
+if [[ ! -e .env ]]; then
+cat >.env <<ENV_EOF
+source env/bin/activate
+export FLASK_PORT=5000
+export FLASK_ENV=development
+ENV_EOF
+fi
+
+source .env
+pip install Flask==1.1.2
+pip install Flask-SQLAlchemy==2.4.4
+pip install SQLAlchemy==1.3.23
+pip install requests==2.25.1
+
+echo "----------------------------"
+echo "'env' created. You may now:"
+echo "source .env"
