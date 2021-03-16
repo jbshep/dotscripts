@@ -1,106 +1,21 @@
 #!/bin/bash
 
-if [[ $# -ne 1 ]]; then
-  echo "Usage: $0 <app-name>"
-  exit 1
-fi
-
-if [[ -e $1 ]]; then
-  read -p "$1 already exists. Do you want to overwrite (y/n)? " ans
-  if [[ $ans == "y" ]]; then
-    rm -rf $1
-  else
-    exit 1
-  fi
-fi
-
-mkdir $1
-cd $1
 virtualenv -p python3 env
 
-
+if [[ ! -e .env ]]; then
 cat >.env <<ENV_EOF
 source env/bin/activate
 export FLASK_PORT=5000
 export FLASK_ENV=development
 ENV_EOF
-
+fi
 
 source .env
-pip install Flask
-pip install Flask-SQLAlchemy
-pip install requests
-
-cat >models.py <<MODELS_EOF
-# Set up the DB using the following commands:
-# $ python
-# > from appserver import db
-# > db.create_all()
-# > from models import User
-# > admin = User(username='admin', email='admin@example.com')
-# > db.session.add(admin)
-# > db.session.commit()
-# > User.query.all()
-
-from appserver import db                                                        
-
-# Example class
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=False, nullable=False)
-
-    def __repr__(self):
-        return '<User %r>' % self.username
-MODELS_EOF
-
-cat >appserver.py <<SERVER_EOF
-# Don't call this flask.py!
-# Documentation for Flask can be found at:
-# https://flask.palletsprojects.com/en/1.1.x/quickstart/
-
-from flask import Flask, render_template, request, session, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
-import os 
-
-app = Flask(__name__)
-app.secret_key = b'REPLACE_ME_x#pi*CO0@^z'
-
-sqlite_uri = 'sqlite:///' + os.path.abspath(os.path.curdir) + '/test.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = sqlite_uri
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-from models import User
-
-@app.route('/')
-def index():
-    return 'Results of GET /'
-SERVER_EOF
-
-
-cat >appclient.py <<CLIENT_EOF
-# Documentation for 'requests' library can be found at:
-# https://requests.readthedocs.io/en/master/user/quickstart/
-
-import requests
-import os
-
-port = os.environ['FLASK_PORT']
-if not port:
-    port = 5000
-
-r = requests.get('http://10.92.21.107:{}/'.format(port))
-print(r.text)
-CLIENT_EOF
-
-
-mkdir templates
-mkdir static
+pip install Flask==1.1.2
+pip install Flask-SQLAlchemy==2.4.4
+pip install SQLAlchemy==1.3.23
+pip install requests==2.25.1
 
 echo "----------------------------"
-echo "$1 created. To get started,"
-echo "cd $1 && source .env"
-echo "Then, to run your app,"
-echo "flaskrun appserver.py"
-
+echo "'env' created. You may now:"
+echo "source .env"
