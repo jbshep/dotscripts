@@ -1,3 +1,3 @@
 #!/bin/bash
 
-zip -r $1.zip $1 -x \*/venv/\* \*/__pycache__/\*
+zip -r $1.zip $1 -x \*/env/\* \*/venv/\* \*/__pycache__/\*
