@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+
+import os
+
+os.system('docker ps >dps.txt')
+with open('dps.txt', 'r') as f:
+    for line in f:
+        if not line.startswith('CONTAINER'):
+            cid = line.split()[0]
+            os.system('docker rm -f ' + cid)
+
+from pathlib import Path
+
+Path('dps.txt').unlink()
