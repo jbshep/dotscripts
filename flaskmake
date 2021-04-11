@@ -97,7 +97,9 @@ CLIENT_EOF
 
 
 mkdir templates
-mkdir static
+mkdir -p static/js
+mkdir static/css
+mkdir static/img
 
 echo "----------------------------"
 echo "$1 created. To get started,"
