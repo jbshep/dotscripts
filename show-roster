@@ -9,9 +9,14 @@ semester=`cat ~/.semester`
 semdir=${HOME}/acad/c/$semester
 
 classes=`ls -1 $semdir`
+
+if [[ $# -eq 1 ]]; then
+    classes=$1
+fi
+
 for cl in $classes; do
     echo "--- $cl ----------"
-    rosterfile=$semdir/$cl/roster.txt
+    rosterfile=$semdir/$cl/roster.csv
     if [[ ! -e $rosterfile ]]; then
         echo "NO ROSTER"
     else

@@ -19,7 +19,7 @@ semdir=${HOME}/acad/c/$semester
 
 classes=`ls -1 $semdir`
 for cl in $classes; do
-    rosterfile=$semdir/$cl/roster.txt
+    rosterfile=$semdir/$cl/roster.csv
     if [[ -e $rosterfile ]]; then
         if [[ `grep ",$username\$" $rosterfile` != '' ]]; then
             echo $cl
