@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+from subprocess import getoutput
+from sys import argv
+
+# If input.txt exists, redirect input from that.
+runcmd = 'python3 "{}" <input.txt'
+if not Path('input.txt').exists():
+    print('Note: no input.txt detected in current directory.')
+    print()
+    runcmd = 'python3 "{}"'
+
+ignorefiles = [argv[0], 'input.txt', 'output.txt']
+
+cwd = Path('.')
+filenames = sorted(
+                [filepath.name
+                 for filepath in cwd.iterdir()
+                 if filepath.name not in ignorefiles]
+            )
+
+with open('output.txt', 'w') as wf:
+    for filename in filenames:
+        wf.write('\n----- {} -----\n\n'.format(filename))
+        out = getoutput(runcmd.format(filename))
+        wf.write(out + '\n')
