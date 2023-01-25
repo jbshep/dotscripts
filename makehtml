@@ -1,31 +1,30 @@
 #!/bin/bash
 
-if [[ $# -ne 1 ]]; then
-  echo "Usage: $0 <prefix>"
-  exit 1
+if [[ $# -eq 0 ]] ; then
+    echo "Usage: $(basename $BASH_SOURCE) [fileprefix ...]"
+    exit 1
 fi
 
-cat >$1.html <<EOF
-<!doctype html>
+for prefix in "$@"; do
+    if [[ -e $prefix.html ]]; then
+        echo "$prefix.html already exists!"
+        exit 2
+    fi
+done
 
+for prefix in "$@"; do
+    cat >$prefix.html <<EOF
 <html>
 
 <head>
-
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>$prefix</title>
 
   <!-- UNCOMMENT FOR INCLUDING CUSTOM CSS
   <link href="css/site.css" rel="stylesheet"></link>
   -->
-
 </head>
 
 <body>
-
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
 
   <!-- UNCOMMENT FOR DEV VERSION OF REACT
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
@@ -35,9 +34,9 @@ cat >$1.html <<EOF
 
   <script type="text/babel" src="your-react-file.js"></script>
   -->
-
 </body>
 
 </html>
 EOF
+done
 
