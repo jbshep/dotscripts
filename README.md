@@ -6,3 +6,8 @@ To use:
 
 `cd ~/.scripts && make`
 
+Alternatively, you can type `make link` instead of just `make`.
+
+To unlink the files and instead leave a *copy* in your `~/bin` folder,
+type `make unlink`.
+
