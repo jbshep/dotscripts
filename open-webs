@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+import webbrowser
+import time
+from pathlib import Path
+
+if not Path("webs.txt").exists():
+    print("No webs.txt found.")
+    print("This script requires a webs.txt file containing URLs.")
+    exit(1)
+
+sites = [site.rstrip() for site in open("webs.txt")]
+for url in sites:
+    webbrowser.open(url)
+    time.sleep(0.5)
+
