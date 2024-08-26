@@ -11,7 +11,9 @@ def canvas_roster_to_text(fn):
             for line in ifile:
                 if line.find('\t') >= 0 and line.find('Jason Shepherd') == -1:
                     pieces = line.split('\t')
-                    ofile.write('%s,%s\n' % (pieces[0], pieces[1]))
+                    if len(pieces) >= 3:
+                        ofile.write('%s,%s\n'
+                            % (pieces[1].rstrip(), pieces[2].rstrip()))
     Path(fn).unlink()
     #Path(tempfn).rename(fn)
     Path(tempfn).rename('roster.csv')
