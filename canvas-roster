@@ -13,7 +13,7 @@ def canvas_roster_to_text(fn):
                     pieces = line.split('\t')
                     if len(pieces) >= 3:
                         ofile.write('%s,%s\n'
-                            % (pieces[1].rstrip(), pieces[2].rstrip()))
+                            % (pieces[0].rstrip(), pieces[1].rstrip()))
     Path(fn).unlink()
     #Path(tempfn).rename(fn)
     Path(tempfn).rename('roster.csv')
