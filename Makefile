@@ -1,6 +1,6 @@
 SHELL=/bin/bash
 
-SCRIPTFILES = canvas-roster cs1-robot flaskmake flaskrun ghlink nicezip set-semester show-roster what-classes uncanvas makehtml makeenv dockerkillall gitclone pydev open-webs
+SCRIPTFILES = canvas-roster cs1-robot flaskrun ghlink nicezip set-semester show-roster what-classes uncanvas makeflask makehtml makeenv dockerkillall gitclone pydev open-webs
 
 link: $(SCRIPTFILES)
 	for i in $?; do \
