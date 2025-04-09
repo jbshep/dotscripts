@@ -32,7 +32,7 @@ function makebox() {
 }
 
 logfile=.makeflask.log
-libs="Flask requests SQLAlchemy Flask-SQLAlchemy"
+libs="Flask requests SQLAlchemy Flask-SQLAlchemy flask-session"
 appname=$1
 
 makebox "Creating Flask app '$appname'"
