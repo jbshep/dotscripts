@@ -58,6 +58,8 @@ ENV_EOF
 echo "Installing Python libraries: $libs"
 source .env >$logfile 2>&1
 pip install $libs >$logfile 2>&1
+echo "Creating requirements.txt."
+pip freeze >requirements.txt
 
 echo "Creating application skeleton."
 echo ""
