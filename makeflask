@@ -14,6 +14,10 @@ if [[ -e $1 ]]; then
   fi
 fi
 
+green() { echo -e "\033[32m$1\033[0m"; }
+red()   { echo -e "\033[31m$1\033[0m"; }
+yellow(){ echo -e "\033[33m$1\033[0m"; }
+
 function makebox() {
     mystr=$1
     N=${#mystr}
@@ -155,10 +159,13 @@ mkdir static/img
 echo "    └─ img/"
 
 echo ""
-echo "$appname created. To get started,"
-echo "cd $appname && source .env"
-echo "Then, to run your app,"
-echo "flask run"
+echo "🚀 $appname created. 🚀"
+echo ""
+echo -e "To get started, type \033[32mcd $appname && source .env\033[0m"
+echo -e "To run your app, type \033[32mflask run\033[0m"
+echo ""
+echo "🏎️ 🏎️  You are all set.  Vroom vroom! 🏎️ 🏎️"
+echo ""
 
 # Flask app created successfully.  Okay to delete logfile.
 rm -f $logfile
