@@ -36,7 +36,7 @@ function makebox() {
 }
 
 logfile=.makeflask.log
-libs="Flask requests SQLAlchemy Flask-SQLAlchemy flask-session"
+libs="Flask requests SQLAlchemy Flask-SQLAlchemy flask-session Flask-SocketIO flask_cors"
 appname=$1
 
 makebox "Creating Flask app '$appname'"
