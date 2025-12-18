@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+from sys import argv
+import webbrowser
+
+urls = {
+    "vader": "https://www.youtube.com/watch?v=CRbiqM6kif8&t=0",
+    "beavis": "https://www.youtube.com/watch?v=9biCMFrsFgA&t=0",
+    "scotch": "https://www.youtube.com/watch?v=MPY_EuvimH0&t=0",
+}
+
+progname = Path(argv[0]).stem
+choice = "vader"
+
+if len(argv) > 1:
+    choice = argv[1]
+    if choice not in urls:
+        print('Usage: %s <choice>' % progname)
+        print(f'<choice> can be: {", ".join(urls.keys())}')
+        exit(1)
+
+print(f'Playing yule "{choice}". Available yules are: {", ".join(urls.keys())}')
+
+webbrowser.open(urls[choice])
