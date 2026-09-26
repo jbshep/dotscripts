@@ -17,7 +17,8 @@ cwd = Path('.')
 filenames = sorted(
                 [filepath.name
                  for filepath in cwd.iterdir()
-                 if filepath.name not in ignorefiles]
+                 if filepath.name not in ignorefiles \
+                    and filepath.name.endswith('.py')]
             )
 
 with open('output.txt', 'w') as wf:
